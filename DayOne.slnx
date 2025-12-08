@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="AdventOfCode/AdventOfCode.vcxproj" Id="a5876faa-9cfd-4aed-affd-393b707e7f95" />
+</Solution>
