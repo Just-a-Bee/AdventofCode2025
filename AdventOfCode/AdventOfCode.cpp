@@ -29,17 +29,14 @@ int daySeven();
 long long daySevenP2();
 int dayEight();
 int dayEightP2();
+long long dayNine();
+long long dayNineP2();
 
 int main()
 {
-    //int one[3] = { 7864, 52073, 52717 };
-    //int two[3] = { 78558, 11653, 58116 };
-    //cout << sqrt(7864)
 
 
-
-
-    cout << dayEightP2();
+    cout << dayNineP2();
 
     return 0;
 }
@@ -1030,4 +1027,93 @@ int dayEightP2() {
 
 
     return points[first].x * points[second].x;
+}
+
+
+
+long long dayNine() {
+    // open file
+    ifstream inFile;
+    inFile.open("DayNineInput.txt", ifstream::in);
+    string line;
+
+
+    long long largest = 0;
+    vector<pair<int, int>> points;
+
+    while (getline(inFile, line)) {
+        int first = stoi(line.substr(0, line.find(',')));
+        int second = stoi(line.substr(line.find(',') + 1, line.length()));
+
+        //cout << "Comparing point " << first << "," << second << endl;
+
+        for (int i = 0; i < points.size(); i++) {
+            long long width = abs(first - points[i].first)+1;
+            long long height = abs(second - points[i].second)+1;
+            long long size = width * height;
+
+            //cout << "With point " << points[i].first << "," << points[i].second << " makes size " << size << endl;
+
+            if (size > largest)
+                largest = size;
+
+        }
+        points.push_back(make_pair(first, second));
+    }
+
+    return largest;
+}
+
+long long dayNineP2() {
+    // open file
+    ifstream inFile;
+    inFile.open("exampleInput.txt", ifstream::in);
+    string line;
+
+
+    long long largest = 0;
+    vector<pair<int, int>> points;
+    set<pair<int, int>> allowed_tiles;
+
+    while (getline(inFile, line)) {
+        int first = stoi(line.substr(0, line.find(',')));
+        int second = stoi(line.substr(line.find(',') + 1, line.length()));
+        
+        pair<int, int> current_point = make_pair(first, second);
+
+        // Add green tiles going to point
+        if (points.size() > 0) {
+            pair<int, int> previous_point = points.back();
+
+            // Get distance and direction of current_point
+            int x_distance = current_point.first - previous_point.first;
+            int y_distance = current_point.second - previous_point.second;
+
+
+
+            for (int i = 0; i < max(abs(x_distance),abs(y_distance)); i++) {
+                allowed_tiles.insert(make_pair(previous_point.first + .first * distance, previous_point.second + direction.second * distance));
+            }
+        }
+
+        
+        points.push_back(current_point);
+
+
+
+    }
+
+    for (int i = 0; i < points.size(); i++) {
+        for (int j = i + 1; j < points.size(); j++) {
+            long long width = abs(points[j].first - points[i].first) + 1;
+            long long height = abs(points[j].second - points[i].second) + 1;
+            long long size = width * height;
+
+            if (size > largest)
+                largest = size;
+        }
+    }
+
+
+    return largest;
 }
